@@ -1,0 +1,9 @@
+Total number of frames: 2764
+Total simulation run time: 3309ms
+
+Average miliseconds per frame: 1.19718
+Highest miliseconds per frame: 1.51
+Lowest miliseconds per frame: 0.12
+
+Total number of draw calls: 11056
+Total number of collision checks: 0
