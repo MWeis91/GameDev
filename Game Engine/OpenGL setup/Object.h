@@ -24,32 +24,36 @@
 
 class Object
 {
+
 public:
 	Object();
 	~Object();
 
 	void LoadModel(	const Model &m );						//load a model into the ModelList
+	Model& getModel(){return m;};
 
 	void setModel( const glm::mat4& mod);					//pass and update the model matrix
 	void updateViewProjection(	const glm::mat4& view,		//pass and update the view and projection matrix
-								const glm::mat4& proj);			
-
-	void rotate(const glm::vec3 &quant, const float& w);	//rotate the object using a derived quaternion rotation matrix
-	void translate(const glm::vec3 &move);					//translate/bounding sphere the object on the xyz axis
-	void scale(const glm::vec3 &scale);						//scale the object along the xyz axis
-
-	void minimumBoundingSphere();							//construct a minimum bounding sphere for the object(WIP)
-
+								const glm::mat4& proj);
 	void drawObject(const GLuint& progID,					//Draw the models in the object
 					const GLuint& textureID, 
 					const GLuint& lightID, 
 					const GLuint& MatID, 
-					const GLuint& ModelID, 
-					const GLuint& ViewID);						
+					const GLuint& ModelID,
+					const GLuint& ViewID);			
 
-	bool collisionCheck(const Object &o);					//check for a collison between another object
-	glm::vec3 getCenter();									//return the center of the bounding sphere
-	float getRadius();										//return the radius of the bounding sphere
+	//void rotate(const glm::vec3 &quant, const float& w);	//rotate the object using a derived quaternion rotation matrix
+	//void translate(const glm::vec3 &move);					//translate/bounding sphere the object on the xyz axis
+	//void scale(const glm::vec3 &scale);						//scale the object along the xyz axis
+
+	//void minimumBoundingSphere();							//construct a minimum bounding sphere for the object(WIP)
+
+			
+
+	//bool collisionCheck(const Object &o);					//check for a collison between another object
+
+	//glm::vec3 getCenter();									//return the center of the bounding sphere
+	//float getRadius();										//return the radius of the bounding sphere
 	glm::mat4 getModelMat(){return modelMatrix;};
 	glm::mat4 getviewMat(){return viewMatrix;};
 	glm::mat4 getProjMat(){return projectionMatrix;};
@@ -57,22 +61,14 @@ public:
 	void update(float dt);											//run the associated script for the object
 
 private:
-	bool staticObject;						//specify if the object is static or dynamic
-
-	glm::vec3 center;						//xyz position of the center of the bounding sphere
-	float radius;							//radius of the bounding sphere
+	//glm::vec3 center;						//xyz position of the center of the bounding sphere
+	//float radius;							//radius of the bounding sphere
 
 	glm::mat4 modelMatrix;					//Model matrix for position of our object
 	glm::mat4 viewMatrix;					//view matrix for the camera
 	glm::mat4 projectionMatrix;				//projection matrix for flattening
 
-	Physics::State current;
-	Physics::State previous;
-
 	Model m;
-	
-	//std::vector<Model> ModelList;			//list of all models associated with the object(WIP)
-	//Script file path
-
 };
+
 #endif

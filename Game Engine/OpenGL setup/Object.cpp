@@ -6,8 +6,8 @@ Object::Object()
 
 	setModel(zeroMatrix);
 	updateViewProjection(zeroMatrix, zeroMatrix);
-	radius = 0.0f;
-	center = glm::vec3(0, 0, 0);
+	//radius = 0.0f;
+	//center = glm::vec3(0, 0, 0);
 	m.modelTransform(zeroMatrix);
 }
 
@@ -19,6 +19,7 @@ Object::~Object()
 void Object::setModel(const glm::mat4& mod)
 {
 	modelMatrix = mod;
+	m.modelTransform(mod);
 }
 
 void Object::updateViewProjection(const glm::mat4& view, const glm::mat4& proj)
@@ -29,25 +30,15 @@ void Object::updateViewProjection(const glm::mat4& view, const glm::mat4& proj)
 	m.updateViewProjection(view, proj);
 }
 
-void Object::rotate(const glm::vec3& quant, const float& w)
-{
-	//derive the quaternion rotation matrix
-}
-
-void Object::translate(const glm::vec3& trans)
-{
-	modelMatrix = glm::translate(modelMatrix, trans);
-}
-
-void Object::scale(const glm::vec3& scale)
-{
-	modelMatrix = glm::scale(modelMatrix, scale);
-}
-
 void Object::drawObject(const GLuint& progID, const GLuint& textureID, const GLuint& lightID, const GLuint& MatID, const GLuint& ModelID, const GLuint& ViewID)
 {
 	m.modelTransform(modelMatrix);	//update the models model matrix before each draw call
 	m.draw(progID, textureID, lightID, MatID, ModelID, ViewID);
+}
+
+void Object::LoadModel(const Model& _m)
+{
+	m = _m;
 }
 
 

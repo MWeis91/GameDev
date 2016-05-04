@@ -4,7 +4,11 @@
 #include<glm\glm.hpp>
 #include<glm\fwd.hpp>
 #include<glm\vec3.hpp>
+#include <glm\gtx\quaternion.hpp>
 #include<glm\gtc\matrix_transform.hpp>
+
+#include "Derivative.h"
+#include "State.h"
 
 
 class Physics
@@ -13,23 +17,16 @@ class Physics
 public:
 	Physics();
 
-	struct Derivative
-	{
-		glm::vec3 dx;	//velocity
-		glm::vec3 dv;	//acceleration
-	};
+	static Derivative evaluate( State &initial, float t, float dt, const Derivative &d);
+	static Derivative evaluate (const State& initial, float t);
+	static glm::vec3 gravity(const State &state, float t);
+	static glm::vec3 applyForce(const State &s, float t);
+	static void force(State& s, float dt, Derivative &d, glm::vec3 &angularMomentum);
+	static void integrate(State &s, float t, float dt);
 
-	struct State
-	{
-		glm::vec3 position;
-		glm::vec3 velocity;
-	
-	};
-
-	Derivative evaluate( const State &initial, float t, float dt, const Derivative &d);
-	glm::vec3 acceleration(const State &state, float t);
-	void integrate(State &s, float t, float dt);
-
+private:
+	glm::vec3 g;
+	float k;
 
 };
 #endif

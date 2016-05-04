@@ -61,18 +61,16 @@ void SceneManager::loadObjects(string objectFilePath)//WIP
 		x = stof(lineSplit.back());
 		lineSplit.pop_back();
 
-		pos = glm::vec3(x, y, z);
+		glm::vec3 vec  = glm::vec3(x, y, z);
 
-		tmpObj.translate(pos);
-		ObjList.push_back(tmpObj);
+		glm::mat4 pos = glm::translate(tmpObj.getModelMat(), vec);
+		tmpObj.setModel(pos);
+
+		addObject(tmpObj);
 
 	}
 }
 
-void SceneManager::initRendering()
-{
-	RenderEngine.Initilize(800,800, "Test");
-}
 
 void SceneManager::addObject(const Object &_o)
 {
